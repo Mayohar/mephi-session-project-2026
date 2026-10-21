@@ -1,0 +1,123 @@
+    1  mkdir -p /root/mephi-session-project-2026
+    2  cd /root/mephi-session-project-2026
+    3  ping -c 4 8.8.8.8 > ping.out
+    4  cat ping.out 
+    5  clear
+    6  nmcli -g ipv4.method connection show ens33
+    7  dnf upgrade --refresh 
+    8  dnf install -y nginx libcap-ng-utilts
+    9  dnf install -y nginx libcap-ng-utils
+   10  dnf install -y dnf-plugins-core
+   11  cd /tmp
+   12  dnf download tcpdump
+   13  ls -lh /tmp/tcpdump*.rpm
+   14  rpm -Uvh /tmp/tcpdump*.rpm
+   15  rpm -Uvh --force /tmp/tcpdump*.rpm 
+   16  rm -f /tmp/tcpdump*.i686.rpm 
+   17  dnf download tcpdump.x86_64  
+   18  ls -lh /tmp/tcpdump*.rpm
+   19  rpm -Uvh /tmp/tcpdump*.x86_64.rpm 
+   20  rpm -q tcpdump 
+   21  tcmpdump --version 
+   22  tcpdump --version 
+   23  cd /root/mephi-session-project-2026/ 
+   24  dnf history > dnf.out 
+   25   rpm -1 tcpdump > tcpdump-install.out 
+   26   rpm -q tcpdump > tcpdump-install.out 
+   27  lsblk -o NMAE,SIZE,FSTYPE.MOUNTPOINTS
+   28  lsblk -o NMAE,SIZE,FSTYPE,MOUNTPOINTS
+   29  lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS
+   30  fdisk /dev/sdb
+   31  lsblk /dev/sdb
+   32  mkfs.ext4 -L MEPHI_WEB /dev/sdb1
+   33  blkid /dev/sdb1
+   34  mkdir -p /mephi-web
+   35  cp /etc/fstab /etc/fstab.bak
+   36  echo 'LABEL=MEPHI_WEB /mephi-web ext4 defaults 0 2' >> /etc/fstab
+   37  tail -n 5 /etc/fstab
+   38  systemctl daemon-reload 
+   39   mount /mephi-web
+   40  df -h /mephi-web
+   41  findmnt /mephi-web 
+   42  cp /etc/fstab /root/mephi-session-project-2026/fstab 
+   43  reboot 
+   44  clear
+   45  cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+   46  sed -i '41s#root[[:space:]]*/usr/share/nginx/html;#root /mephi-web;#' /etc/nginx/nginx.conf
+   47  grep -n 'root ' /etc/nginx/nginx.conf
+   48  nginx -t
+   49  systemctl reload nginx
+   50  curl http://localhost/
+   51  cd /root/mephi-session-project-2026/
+   52  curl http://localhost/ > curl.out
+   53  stat /mephi-web >> stat.out
+   54  cat curl.out
+   55  cp /ect/nginx/nginx.conf nginx.conf
+   56  ls -l /etc/nginx/nginx.conf
+   57  cp -v /etc/nginx/nginx.conf /root/mephi-session-project-2026/nginx.conf
+   58  ls -lh
+   59  getent passwd curator1 curator2 user1 user2 user3
+   60  ls /etc/pam.d
+   61  grep -R -n 'pam_access.so' /etc/pam.d/login /etc/pam.d/system-auth 2>/dev/null
+   62  cp -a /etc/pam.d/login /etc/pam.d/login.bak
+   63  cat > etc/security/mephi-console-access.conf <<'EOF' -:curator1:ALL -:curator2:ALL +:ALL:ALL EOF
+
+
+
+
+
+   64  cat > etc/security/mephi-console-access.conf <<'EOF'F
+
+
+
+
+
+
+   65  cat > etc/security/mephi-console-access.conf <<'EOF
+   66  cat > etc/security/mephi-console-access.conf <<'EOF'
+-:curator1:ALL
+-:curator2:ALL
++:ALL:ALL
+EOF
+
+   67  cat > /etc/security/mephi-console-access.conf <<'EOF'
+-:curator1:ALL
+-:curator2:ALL
++:ALL:ALL
+EOF
+
+   68  cat /etc/security/
+   69  cat /etc/security/mephi-console-access.conf 
+   70  printf '\naccount required pam_access.so accessfile=/etc/security/mephi-console-access.conf\n' >> /etc/pam.d//login
+   71  tail -n 5 /etc/pam.d/login
+   72  command -v pamtester
+   73  pamtester login curator1 acct_mgmt
+   74  pamtester login curator1 acct_mgmt
+   75  pamtester login curator2 acct_mgmt
+   76  pamtester login user1 acct_mgmt
+   77  {     echo "=== curator1 ===";     pamtester login curator1 acct_mgmt 2>&1;     echo "=== curator2 ===";     pamtester login curator2 acct_mgmt 2>&1;     echo "=== user1 ===";     pamtester login user1 acct_mgmt 2>&1; } > /root/mephi-session-project-2026/pam-test.out
+   78  grep '^[[:space:]]*PASS_MAX_DAYS' /etc/login.defs
+   79  chage -l user1
+   80  grep -n 'minlen' /etc/security/pwquality.conf
+   81  grep -R -n 'pam_pwquality.so' /etc/pam.d/system-auth /etc/pam.d/password-auth
+   82  sed -i 's/^[[:space:]]*PASS_MAX_DAYS[[:space:]].*/PASS_MAX_DAYS 90/' /etc/login.defs
+   83  grep '^[[:space:]]*PASS_MAX_DAYS' /etc/login.defs
+   84  for u in user1 user2 user3 curator1 curator2; do     chage -M 90 "$u"; done
+   85  chage -l user1
+   86   
+   87  sed -i -E 's/^[[:space:]]*#?[[:space:]]*minlen[[:space:]]*=.*/minlen = 12/' /etc/security/pwquality.conf
+   88   
+   89  sed -i -E 's/^[[:space:]]*#?[[:space:]]*minlen[[:space:]]*=.*/minlen = 12/' /etc/security/pwquality.conf
+   90  grep -n '^[[:space:]]*minlen' /etc/security/pwquality.conf
+   91  cd /root/mephi-session-project-2026
+   92  cp /etc/security/pwquality.conf pwquality.conf
+   93  grep '^[[:space:]]*PASS_MAX_DAYS' /etc/login.defs > password-policy.out
+   94  chage -l user1 >> password-policy.out
+   95  cp /etc/security/mephi-console-access.conf mephi-console-access.conf
+   96  grep 'pam_access.so' /etc/pam.d/login >> password-policy.out
+   97  getent passwd user1 user2 user3 curator1 curator2 > passwd
+   98  getent group developers curators > group
+   99  getent shadow user1 user2 user3 curator1 curator2 | awk -F: 'BEGIN {OFS=":"} {$2="REDACTED": print}' > shadow
+  100  getent shadow user1 user2 user3 curator1 curator2 | awk -F: 'BEGIN {OFS=":"} {$2="REDACTED': print}' > shadow
+  101  getent shadow user1 user2 user3 curator1 curator2 | awk -F: 'BEGIN {OFS=":"} {$2="REDACTED"; print}' > shadow
+  102  history >history.out 
